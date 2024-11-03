@@ -2,12 +2,12 @@ package week02.selfReview;
 
 import java.util.Arrays;
 
-public class CopyPractice03 {
+public class CopyPractice04 {
     public static void main(String[] args) {
         // 2차원 이상의 deep copy 복습코드
         // 배열원소는 1~100 사이의 난수이다.
-
         int[][] intArray = new int[5][5];
+
         for (int i = 0; i < intArray.length; i++) {
             for (int j = 0; j < intArray[i].length; j++) {
                 intArray[i][j] = (int) (1 + Math.random() * 100);
@@ -22,22 +22,24 @@ public class CopyPractice03 {
             System.out.println();
         }
 
-        // 1) clone() 함수로 원본배열을 복사해보자.
-        System.out.println("\nclone()");
-        int[][] copiedArray = intArray.clone();
+        // 1) clone() 함수로 배열을 복사해보자.
+        System.out.println("\n--- clone() ---");
+        int[][] copiedArray = new int [intArray.length][];
+        for(int i = 0; i < intArray.length ; i++) {
+            copiedArray[i] = intArray[i].clone();
+        }
         copiedArray[0][0] = 363;
         copiedArray[1][0] = 364;
         copiedArray[2][0] = 365;
 
-        System.out.println("--- clone() 이후 원본배열 출력결과 ---");
+        System.out.println("--- 복사이후 원본배열 출력결과 ---");
         for (int i = 0; i < intArray.length; i++) {
             for (int j = 0; j < intArray[i].length; j++) {
                 System.out.printf("%d ", intArray[i][j]);
             }
             System.out.println();
         }
-
-        System.out.println("\n--- copiedArray 배열 출력결과 ---");
+        System.out.println("\n--- 복사본 배열 출력결과 ---");
         for (int i = 0; i < copiedArray.length; i++) {
             for (int j = 0; j < copiedArray[i].length; j++) {
                 System.out.printf("%d ", copiedArray[i][j]);
@@ -45,22 +47,25 @@ public class CopyPractice03 {
             System.out.println();
         }
 
-        // 2) Arrays.copyOf 함수로 원본배열을 복사해보자.
-        System.out.println("\nArrays.copyOf()");
-        int[][] copiedArray2 = Arrays.copyOf(intArray, intArray.length);
+
+        // 2) Arrays.copyOf() 함수로 배열을 복사해보자.
+        System.out.println("\n--- Arrays.copyOf() ---");
+        int[][] copiedArray2 = new int [intArray.length][];
+        for(int i = 0; i < intArray.length ; i++) {
+            copiedArray2[i] = Arrays.copyOf(intArray[i], intArray[i].length);
+        }
         copiedArray2[0][0] = 366;
         copiedArray2[1][0] = 367;
         copiedArray2[2][0] = 368;
 
-        System.out.println("--- Arrays.copyOf() 이후 원본배열 출력결과 ---");
+        System.out.println("--- 복사이후 원본배열 출력결과 ---");
         for (int i = 0; i < intArray.length; i++) {
             for (int j = 0; j < intArray[i].length; j++) {
                 System.out.printf("%d ", intArray[i][j]);
             }
             System.out.println();
         }
-
-        System.out.println("\n--- copiedArray2 배열 출력결과 ---");
+        System.out.println("\n--- 복사본 배열 출력결과 ---");
         for (int i = 0; i < copiedArray2.length; i++) {
             for (int j = 0; j < copiedArray2[i].length; j++) {
                 System.out.printf("%d ", copiedArray2[i][j]);
@@ -68,81 +73,84 @@ public class CopyPractice03 {
             System.out.println();
         }
 
-        // 3) System.arraycopy 함수로 원본배열 복사해보기
-        System.out.println("\nSystem.arraycopy()");
+        // 2) System.arraycopy() 함수로 배열을 복사해보자.
+        System.out.println("\n--- System.aaraycopy() ---");
         int[][] copiedArray3 = new int [intArray.length][];
-        System.arraycopy(intArray, 0, copiedArray3, 0, intArray.length );
+        for(int i = 0; i < intArray.length ; i++) {
+            copiedArray3[i] = new int[intArray[i].length];
+            System.arraycopy(intArray[i], 0, copiedArray3[i],0, intArray[i].length);
+        }
         copiedArray3[0][0] = 369;
         copiedArray3[1][0] = 370;
         copiedArray3[2][0] = 371;
-        System.out.println("--- Arrays.copyOf() 이후 원본배열 출력결과 ---");
+
+        System.out.println("--- 복사이후 원본배열 출력결과 ---");
         for (int i = 0; i < intArray.length; i++) {
             for (int j = 0; j < intArray[i].length; j++) {
                 System.out.printf("%d ", intArray[i][j]);
             }
             System.out.println();
         }
-        System.out.println("\n--- copiedArray3 배열 출력결과 ---");
-        for(int i =0; i< copiedArray3.length; i++) {
+        System.out.println("\n--- 복사본 배열 출력결과 ---");
+        for (int i = 0; i < copiedArray3.length; i++) {
             for (int j = 0; j < copiedArray3[i].length; j++) {
                 System.out.printf("%d ", copiedArray3[i][j]);
             }
             System.out.println();
         }
-
     }
 }
 
 /**
  * --- 원본 배열 출력 ---
- * 35 14 48 44 79
- * 22 19 55 60 77
- * 44 43 98 86 8
- * 84 17 39 85 38
- * 19 23 85 64 27
+ * 23 12 95 58 77
+ * 67 49 17 8 79
+ * 44 83 56 81 76
+ * 36 81 58 58 52
+ * 66 23 45 87 26
  *
- * clone()
- * --- clone() 이후 원본배열 출력결과 ---
- * 363 14 48 44 79
- * 364 19 55 60 77
- * 365 43 98 86 8
- * 84 17 39 85 38
- * 19 23 85 64 27
+ * --- clone() ---
+ * --- 복사이후 원본배열 출력결과 ---
+ * 23 12 95 58 77
+ * 67 49 17 8 79
+ * 44 83 56 81 76
+ * 36 81 58 58 52
+ * 66 23 45 87 26
  *
- * --- copiedArray 배열 출력결과 ---
- * 363 14 48 44 79
- * 364 19 55 60 77
- * 365 43 98 86 8
- * 84 17 39 85 38
- * 19 23 85 64 27
+ * --- 복사본 배열 출력결과 ---
+ * 363 12 95 58 77
+ * 364 49 17 8 79
+ * 365 83 56 81 76
+ * 36 81 58 58 52
+ * 66 23 45 87 26
  *
- * Arrays.copyOf()
- * --- Arrays.copyOf() 이후 원본배열 출력결과 ---
- * 366 14 48 44 79
- * 367 19 55 60 77
- * 368 43 98 86 8
- * 84 17 39 85 38
- * 19 23 85 64 27
+ * --- Arrays.copyOf() ---
+ * --- 복사이후 원본배열 출력결과 ---
+ * 23 12 95 58 77
+ * 67 49 17 8 79
+ * 44 83 56 81 76
+ * 36 81 58 58 52
+ * 66 23 45 87 26
  *
- * --- copiedArray2 배열 출력결과 ---
- * 366 14 48 44 79
- * 367 19 55 60 77
- * 368 43 98 86 8
- * 84 17 39 85 38
- * 19 23 85 64 27
+ * --- 복사본 배열 출력결과 ---
+ * 366 12 95 58 77
+ * 367 49 17 8 79
+ * 368 83 56 81 76
+ * 36 81 58 58 52
+ * 66 23 45 87 26
  *
- * System.arraycopy()
- * --- Arrays.copyOf() 이후 원본배열 출력결과 ---
- * 369 14 48 44 79
- * 370 19 55 60 77
- * 371 43 98 86 8
- * 84 17 39 85 38
- * 19 23 85 64 27
+ * --- System.aaraycopy() ---
+ * --- 복사이후 원본배열 출력결과 ---
+ * 23 12 95 58 77
+ * 67 49 17 8 79
+ * 44 83 56 81 76
+ * 36 81 58 58 52
+ * 66 23 45 87 26
  *
- * --- copiedArray3 배열 출력결과 ---
- * 369 14 48 44 79
- * 370 19 55 60 77
- * 371 43 98 86 8
- * 84 17 39 85 38
- * 19 23 85 64 27
+ * --- 복사본 배열 출력결과 ---
+ * 369 12 95 58 77
+ * 370 49 17 8 79
+ * 371 83 56 81 76
+ * 36 81 58 58 52
+ * 66 23 45 87 26
  */
