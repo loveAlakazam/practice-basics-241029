@@ -2,7 +2,7 @@ package week03.homework.step4;
 
 public class DivideOperation extends AbstractOperation{
     @Override
-    double operate(int firstNumber, int secondNumber) {
+    public double operate(int firstNumber, int secondNumber) {
         return ((double)firstNumber) / secondNumber;
     }
 
