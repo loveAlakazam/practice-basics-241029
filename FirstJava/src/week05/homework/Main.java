@@ -55,7 +55,8 @@ public class Main {
 
         // 조건 6) IT책 할인 이벤트
         // 카테고리가 IT 인 책들의 가격을 40% 할인하여 새로운 책 리스트 만들기, discountedBookList
-        List<Book> discountedBookList = bookList.stream().filter(book -> book.getCategory().equals("IT"))
+        List<Book> discountedBookList = bookList.stream()
+                .filter(book -> book.getCategory().equals("IT"))
                 .map(book -> {
                     book.setPrice(book.getPrice() * 0.6);
                     return book;
